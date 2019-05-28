@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+    <classPathEntry location="D:\\java\\DBconnector\\mysql-connector-java-5.1.45-bin.jar"/>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <!--关闭注释 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库连接信息-->
+        <jdbcConnection driverClass="${jdbc.driver}" connectionURL="${jdbc.url}" userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!--生成的model 包路径 -->
+        <javaModelGenerator targetPackage="com.cc.model" targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成xml mapper文件 路径 -->
+        <sqlMapGenerator targetPackage="mybatis/mappers" targetProject="src/main/resources">
+
+        </sqlMapGenerator>
+
+        <!-- 生成的Dao接口 的包路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cc.dao" targetProject="src/main/java">
+        </javaClientGenerator>
+
+
+
+        <!--<table tableName="t_snack" domainObjectName="Snack">-->
+            <!--<columnRenamingRule searchString="s_" replaceString=""/>-->
+            <!--&lt;!&ndash;为了防止出现生成XXXXWithBlobs方法的问题，将数据库中text字段映射成varchar&ndash;&gt;-->
+            <!--<columnOverride column="s_picUrls" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--<columnOverride column="s_description" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
+<!--        <table tableName="t_user" domainObjectName="User">-->
+<!--            <columnRenamingRule searchString="u_" replaceString=""/>-->
+<!--        </table>-->
+
+<!--        <table tableName="t_role" domainObjectName="Role">-->
+<!--            <columnRenamingRule searchString="r_" replaceString=""/>-->
+<!--        </table>-->
+<!--        <table tableName="t_galleryDesign" domainObjectName="GalleryDesign">-->
+<!--            <columnRenamingRule searchString="g_" replaceString=""/>-->
+<!--        </table>-->
+        <table tableName="t_decorationProcess" domainObjectName="DecorationProcess">
+            <property name="useActualColumnNames" value="true"/>
+            <columnOverride column="constructionPicUrls" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="remarks" javaType="java.lang.String" jdbcType="VARCHAR" />
+
+        </table>
+    </context>
+</generatorConfiguration>

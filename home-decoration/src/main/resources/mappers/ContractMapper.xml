@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cc.dao.ContractMapper" >
+  <resultMap id="BaseResultMap" type="com.cc.model.Contract" >
+    <id column="c_id" property="id" jdbcType="INTEGER" />
+    <result column="c_userId" property="userid" jdbcType="INTEGER" />
+    <result column="c_userName" property="username" jdbcType="VARCHAR" />
+    <result column="c_merchant" property="merchant" jdbcType="VARCHAR" />
+    <result column="c_contractContent" property="contractcontent" jdbcType="VARCHAR" />
+    <result column="c_houseLocation" property="houselocation" jdbcType="VARCHAR" />
+    <result column="c_houseDescription" property="housedescription" jdbcType="VARCHAR" />
+    <result column="c_constructionTime" property="constructiontime" jdbcType="VARCHAR" />
+    <result column="c_contractState" property="contractstate" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    c_id, c_userId, c_userName, c_merchant, c_contractContent, c_houseLocation, c_houseDescription, 
+    c_constructionTime, c_contractState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cc.model.ContractExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_contract
+    where c_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_contract
+    where c_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cc.model.ContractExample" >
+    delete from t_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cc.model.Contract" >
+    insert into t_contract (c_id, c_userId, c_userName, 
+      c_merchant, c_contractContent, c_houseLocation, 
+      c_houseDescription, c_constructionTime, c_contractState
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{merchant,jdbcType=VARCHAR}, #{contractcontent,jdbcType=VARCHAR}, #{houselocation,jdbcType=VARCHAR}, 
+      #{housedescription,jdbcType=VARCHAR}, #{constructiontime,jdbcType=VARCHAR}, #{contractstate,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cc.model.Contract" >
+    insert into t_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        c_id,
+      </if>
+      <if test="userid != null" >
+        c_userId,
+      </if>
+      <if test="username != null" >
+        c_userName,
+      </if>
+      <if test="merchant != null" >
+        c_merchant,
+      </if>
+      <if test="contractcontent != null" >
+        c_contractContent,
+      </if>
+      <if test="houselocation != null" >
+        c_houseLocation,
+      </if>
+      <if test="housedescription != null" >
+        c_houseDescription,
+      </if>
+      <if test="constructiontime != null" >
+        c_constructionTime,
+      </if>
+      <if test="contractstate != null" >
+        c_contractState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant != null" >
+        #{merchant,jdbcType=VARCHAR},
+      </if>
+      <if test="contractcontent != null" >
+        #{contractcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="houselocation != null" >
+        #{houselocation,jdbcType=VARCHAR},
+      </if>
+      <if test="housedescription != null" >
+        #{housedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="constructiontime != null" >
+        #{constructiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="contractstate != null" >
+        #{contractstate,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cc.model.ContractExample" resultType="java.lang.Integer" >
+    select count(*) from t_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_contract
+    <set >
+      <if test="record.id != null" >
+        c_id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        c_userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        c_userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant != null" >
+        c_merchant = #{record.merchant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractcontent != null" >
+        c_contractContent = #{record.contractcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houselocation != null" >
+        c_houseLocation = #{record.houselocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housedescription != null" >
+        c_houseDescription = #{record.housedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constructiontime != null" >
+        c_constructionTime = #{record.constructiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractstate != null" >
+        c_contractState = #{record.contractstate,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_contract
+    set c_id = #{record.id,jdbcType=INTEGER},
+      c_userId = #{record.userid,jdbcType=INTEGER},
+      c_userName = #{record.username,jdbcType=VARCHAR},
+      c_merchant = #{record.merchant,jdbcType=VARCHAR},
+      c_contractContent = #{record.contractcontent,jdbcType=VARCHAR},
+      c_houseLocation = #{record.houselocation,jdbcType=VARCHAR},
+      c_houseDescription = #{record.housedescription,jdbcType=VARCHAR},
+      c_constructionTime = #{record.constructiontime,jdbcType=VARCHAR},
+      c_contractState = #{record.contractstate,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cc.model.Contract" >
+    update t_contract
+    <set >
+      <if test="userid != null" >
+        c_userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        c_userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant != null" >
+        c_merchant = #{merchant,jdbcType=VARCHAR},
+      </if>
+      <if test="contractcontent != null" >
+        c_contractContent = #{contractcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="houselocation != null" >
+        c_houseLocation = #{houselocation,jdbcType=VARCHAR},
+      </if>
+      <if test="housedescription != null" >
+        c_houseDescription = #{housedescription,jdbcType=VARCHAR},
+      </if>
+      <if test="constructiontime != null" >
+        c_constructionTime = #{constructiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="contractstate != null" >
+        c_contractState = #{contractstate,jdbcType=BIT},
+      </if>
+    </set>
+    where c_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cc.model.Contract" >
+    update t_contract
+    set c_userId = #{userid,jdbcType=INTEGER},
+      c_userName = #{username,jdbcType=VARCHAR},
+      c_merchant = #{merchant,jdbcType=VARCHAR},
+      c_contractContent = #{contractcontent,jdbcType=VARCHAR},
+      c_houseLocation = #{houselocation,jdbcType=VARCHAR},
+      c_houseDescription = #{housedescription,jdbcType=VARCHAR},
+      c_constructionTime = #{constructiontime,jdbcType=VARCHAR},
+      c_contractState = #{contractstate,jdbcType=BIT}
+    where c_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

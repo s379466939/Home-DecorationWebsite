@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cc.dao.ReserveDecorationMapper" >
+  <resultMap id="BaseResultMap" type="com.cc.model.ReserveDecoration" >
+    <id column="r_id" property="id" jdbcType="INTEGER" />
+    <result column="r_realname" property="realname" jdbcType="VARCHAR" />
+    <result column="r_tel" property="tel" jdbcType="BIGINT" />
+    <result column="r_isDone" property="isdone" jdbcType="BIT" />
+    <result column="r_userId" property="userid" jdbcType="INTEGER" />
+    <result column="r_reserveDate" property="reservedate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    r_id, r_realname, r_tel, r_isDone, r_userId, r_reserveDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cc.model.ReserveDecorationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_reserveDecoration
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_reserveDecoration
+    where r_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_reserveDecoration
+    where r_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cc.model.ReserveDecorationExample" >
+    delete from t_reserveDecoration
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cc.model.ReserveDecoration" >
+    insert into t_reserveDecoration (r_id, r_realname, r_tel, 
+      r_isDone, r_userId, r_reserveDate
+      )
+    values (#{id,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR}, #{tel,jdbcType=BIGINT}, 
+      #{isdone,jdbcType=BIT}, #{userid,jdbcType=INTEGER}, #{reservedate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cc.model.ReserveDecoration" >
+    insert into t_reserveDecoration
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        r_id,
+      </if>
+      <if test="realname != null" >
+        r_realname,
+      </if>
+      <if test="tel != null" >
+        r_tel,
+      </if>
+      <if test="isdone != null" >
+        r_isDone,
+      </if>
+      <if test="userid != null" >
+        r_userId,
+      </if>
+      <if test="reservedate != null" >
+        r_reserveDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=BIGINT},
+      </if>
+      <if test="isdone != null" >
+        #{isdone,jdbcType=BIT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="reservedate != null" >
+        #{reservedate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cc.model.ReserveDecorationExample" resultType="java.lang.Integer" >
+    select count(*) from t_reserveDecoration
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_reserveDecoration
+    <set >
+      <if test="record.id != null" >
+        r_id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.realname != null" >
+        r_realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        r_tel = #{record.tel,jdbcType=BIGINT},
+      </if>
+      <if test="record.isdone != null" >
+        r_isDone = #{record.isdone,jdbcType=BIT},
+      </if>
+      <if test="record.userid != null" >
+        r_userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.reservedate != null" >
+        r_reserveDate = #{record.reservedate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_reserveDecoration
+    set r_id = #{record.id,jdbcType=INTEGER},
+      r_realname = #{record.realname,jdbcType=VARCHAR},
+      r_tel = #{record.tel,jdbcType=BIGINT},
+      r_isDone = #{record.isdone,jdbcType=BIT},
+      r_userId = #{record.userid,jdbcType=INTEGER},
+      r_reserveDate = #{record.reservedate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cc.model.ReserveDecoration" >
+    update t_reserveDecoration
+    <set >
+      <if test="realname != null" >
+        r_realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        r_tel = #{tel,jdbcType=BIGINT},
+      </if>
+      <if test="isdone != null" >
+        r_isDone = #{isdone,jdbcType=BIT},
+      </if>
+      <if test="userid != null" >
+        r_userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="reservedate != null" >
+        r_reserveDate = #{reservedate,jdbcType=DATE},
+      </if>
+    </set>
+    where r_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cc.model.ReserveDecoration" >
+    update t_reserveDecoration
+    set r_realname = #{realname,jdbcType=VARCHAR},
+      r_tel = #{tel,jdbcType=BIGINT},
+      r_isDone = #{isdone,jdbcType=BIT},
+      r_userId = #{userid,jdbcType=INTEGER},
+      r_reserveDate = #{reservedate,jdbcType=DATE}
+    where r_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
